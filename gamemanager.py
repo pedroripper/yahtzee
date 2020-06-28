@@ -38,7 +38,6 @@ def getPlayerNames():
 # 
 def getPlayerNamesInd(player):
 	global PlayerNameList
-	print(PlayerNameList[player])
 	return PlayerNameList[player]
 
 
@@ -54,7 +53,6 @@ def setPlayerNames(nameList):
 # 
 def setPlayerNameInd(name, nPlayer):
 	global PlayerNameList
-	print(name)
 	PlayerNameList[nPlayer] +=  name
 # 
 # Renorna a vez do jogador x
@@ -106,11 +104,11 @@ def calcWinner():
 	winnerIndex = 0
 	score = 0
 	highscore = 0
-	print("Fim do jogo!\n")
-	print("Pontuacoes:\n")
+	# print("Fim do jogo!\n")
+	# print("Pontuacoes:\n")
 	for i in range(numPlayers):
 		score = tm.calcTable(i)
-		print("Jogador " + str(i+1) +": " + str(score) + "pontos\n")
+		# print("Jogador " + str(i+1) +": " + str(score) + "pontos\n")
 		if score > highscore:
 			highscore = score
 			winnerIndex = i

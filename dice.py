@@ -28,7 +28,7 @@ def createSeq():
 			chanceSeq[:] += [tossDice()] #cria a sequencia com dados aleatorios de 1 a 6
 		print(chanceSeq)
 		it.displayDices(chanceSeq, chances) #Exibe os dados na interface
-		chanceSeq[:] = it.finalSeq # Pega os dados que o usuario desejou
+		chanceSeq[:] = it.getFinalSeq() # Pega os dados que o usuario desejou
 		print(chanceSeq)
 		dicesToRoll = 5 - len(chanceSeq) #Dados a serem jogados sao 5 - (numero de dados que quis ficar)
 		if(dicesToRoll == 0): # Se nao tem dados para jogar, usuario quis ficar com todos, logo nao vai mudar seq
