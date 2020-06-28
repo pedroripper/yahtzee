@@ -3,6 +3,7 @@
 # dados nao relacionadas a interface
 # 
 import interface as it
+import dicesinterface as di
 import random
 
 __all__ = ['createSeq']
@@ -30,7 +31,7 @@ def createSeq():
 #	Exibe os dados na interface
 		it.displayDices(chanceSeq, chances) 
 # 	Pega os dados que o usuario desejou
-		chanceSeq[:] = it.getFinalSeq() 
+		chanceSeq[:] = di.getFinalSeq() 
 #	Dados a serem jogados sao 5 - (numero de dados que quis ficar)
 		dicesToRoll = 5 - len(chanceSeq) 
 # 	Se nao tem dados para jogar, usuario quis ficar com todos, logo nao vai mudar seq

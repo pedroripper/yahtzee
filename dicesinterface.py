@@ -1,10 +1,29 @@
 
+from tkinter import *
+from PIL import ImageTk, Image
+import gamemanager as gm
+
+
+
+__all__ = ['displayDices','getFinalSeq','removeDicesElements','startDiceElements']
+
+global dicesFrame  
+
+def startDiceElements(root):
+	global mainRoot
+	global dicesFrame    
+	global diceCanvas
+	mainRoot = root
+	dicesFrame = Frame(mainRoot)
+	diceCanvas = Canvas(dicesFrame, width=500, height=150, bg='white')
+
+
 # 
 # Exibe os dados lancados pelo usuario para escolher quais lancar novamenrte
 # 
 def displayDices(seq, chances): 
-	
-	global diceFrame    
+	global mainRoot
+	global dicesFrame    
 	global diceCanvas
 	global finalSeq
 
@@ -100,7 +119,7 @@ def displayDices(seq, chances):
 # 	Confirma a sequencia final de dados
 			if(event.x >= confirmButtonPos[0] and event.x <= (confirmButtonPos[0]+confirmButtonSize[0])):
 				if(event.y >= confirmButtonPos[1] and event.y <= (confirmButtonPos[1]+confirmButtonSize[1])):
-					root.quit()
+					mainRoot.quit()
 		else:
 # 	Ainda nao comecou a selecionar os dados
 			if(startedSelectingDices[0] == 0):
@@ -108,7 +127,7 @@ def displayDices(seq, chances):
 				if(event.x >= maintainButtonPos[0] and event.x <= (maintainButtonPos[0]+maintainButtonSize[0])):
 					if(event.y >= maintainButtonPos[1] and event.y <= (maintainButtonPos[1]+maintainButtonSize[1])): 
 						dicesFrame.pack_forget()
-						root.quit()
+						mainRoot.quit()
 # 	Resolve alterar a sequencia de dados
 				if(event.x >= changeButtonPos[0] and event.x <= (changeButtonPos[0]+changeButtonSize[0])):
 					if(event.y >= changeButtonPos[1] and event.y <= (changeButtonPos[1]+changeButtonSize[1])):
@@ -122,7 +141,7 @@ def displayDices(seq, chances):
 				if(event.x >= tossAgainButtonPos[0] and event.x <= (tossAgainButtonPos[0]+tossAgainButtonSize[0])):
 					if(event.y >= tossAgainButtonPos[1] and event.y <= (tossAgainButtonPos[1]+tossAgainButtonSize[1])):
 						startedSelectingDices[0] = 2
-						root.quit()
+						mainRoot.quit()
 # 	Seleciona o dado 1
 				if(event.x >= dicePos[0][0] + 10 and event.x <= (dicePos[0][0]+42)):
 					if(event.y >= dicePos[0][1] and event.y <= (dicePos[0][1]+32)):
@@ -155,5 +174,20 @@ def displayDices(seq, chances):
 						finalSeq.remove(seq[4])
 
 	diceCanvas.bind("<Button-1>", dicesChoice)
-	root.mainloop()
+	mainRoot.mainloop()
+
+
+
+# 
+# Retorna a sequencia de dados desejada
+# 
+def getFinalSeq():
+	global finalSeq
+	return finalSeq
+
+
+
+def removeDicesElements():
+	dicesFrame.pack_forget()
+
 
