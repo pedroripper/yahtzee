@@ -73,7 +73,8 @@ def displayDices(seq, chances):
 	dicePos = [[],[],[],[],[]] #posicao de cada um dos 5 dados
 
 # 	Passa a sequencia final recebida do modulo dicemanager
-	finalSeq = seq
+	finalSeq = []
+	finalSeq += seq
 
 # 	Parser para as imagens dos dados e tambem calculo da posicao deles na tela
 	for i in range(len(seq)):
