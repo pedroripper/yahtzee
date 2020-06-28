@@ -356,18 +356,22 @@ def mainView():
 						entryNames[j].pack() #cria os campos para inserir os nomes dos jogadores
 					canvas.create_image(canvas.winfo_width()/2, canvas.winfo_height()/2, image=confirmImage, anchor=CENTER, tags='confirmNamesTag')
 					gameFrame.pack(side = BOTTOM)
+# 	Usuario comecaram a colocar seus nomes
 		elif(gameState == 1):
 			confirmImageSize = [confirmImage.width(), confirmImage.height()]
 			confirmButtonPos = [canvas.coords('confirmNamesTag')[0]-confirmImageSize[0]/2, canvas.coords('confirmNamesTag')[1]-confirmImageSize[1]/2]
+# 	Usuarios confirmam seus nomes
 			if(event.x >= confirmButtonPos[0] and event.x <= (confirmButtonPos[0]+confirmImageSize[0])):
 				if(event.y >= confirmButtonPos[1] and event.y <= (confirmButtonPos[1]+confirmImageSize[1])):
 					for i in range(getNumberPlayers()):
 						setPlayerNameInd(entryNames[i].get(), i)
 						gameState = 2
 					loadGameElements(True)
+# 	Jogo ja comecou
 		else:
 			if(getGameRound() >= 13):
 				return
+# 	Usuario escolhe lancar os dados
 			elif(event.x >= choiceTossDicePos[0] and event.x <= (choiceTossDicePos[0]+choiceTossDiceSize[0])):
 				if(event.y >= choiceTossDicePos[1] and event.y <= (choiceTossDicePos[1]+choiceTossDiceSize[1])):
 					canvas.pack_forget()
@@ -387,5 +391,7 @@ def mainView():
 	canvas.bind("<Button-1>", beginGameClickEvent) #evento de clique do mouse
 
 	root.mainloop()
+
+
 
 

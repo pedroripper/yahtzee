@@ -1,9 +1,4 @@
-# from table import*
-# from dice import*
-# from chooseCell import*
 import interface as inter
-__all__ = ['main']
-
 
 def main():
         inter.mainView()
