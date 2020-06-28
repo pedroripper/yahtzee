@@ -11,62 +11,13 @@ from menubar import*
 from gamemanager import*
 from gameinterface import*
 from dicesinterface import*
+from cellinterface import*
 
 
-__all__ = ['mainView', 'displayDices','getFinalSeq','chooseCellEntry']
+__all__ = ['mainView','removeStarterViewElements']
 
 
 root = Tk()
-
-# dicesFrame = Frame(root)
-# diceCanvas = Canvas(dicesFrame, width=500, height=150, bg='white')
-
-# 
-# Escolhe a celula que deseja inserir na interface
-# 
-def chooseCellEntry(dCelulas): 
-	entryFrame = Frame(root)
-	entryFrame.pack()
-	entry = Entry(entryFrame)
-	entryCanvas = Canvas(entryFrame, width=250, height=100, bg='white')
-	entryLabel = Label(entryFrame, text = "Escolha a célula",  font=('Times', 20), compound = "center")
-	entryFrame.pack()
-	entryLabel.pack()
-	entry.pack()
-	entryCanvas.pack()
-	confirmImage = ImageTk.PhotoImage(Image.open("images/confirm.png"))
-	entryCanvas.create_image(125, 50, image=confirmImage, anchor=CENTER, tags='checkCellButton')
-
-# 
-# 	Pega o valor da celula decidida pelo usuario
-# 
-	def cellChoice(event):
-		global selectedCell
-		global dicesFrame
-		selectedCell = ""
-		confirmImageSize = [confirmImage.width(), confirmImage.height()]
-		confirmButtonPos = [entryCanvas.coords('checkCellButton')[0]-confirmImageSize[0]/2, entryCanvas.coords('checkCellButton')[1]-confirmImageSize[1]/2]
-		if(event.x >= confirmButtonPos[0] and event.x <= (confirmButtonPos[0]+confirmImageSize[0])):
-				if(event.y >= confirmButtonPos[1] and event.y <= (confirmButtonPos[1]+confirmImageSize[1])):
-					selectedCell += entry.get()
-					removeGameElements()
-					removeDicesElements()
-					entryCanvas.pack_forget()
-					entryLabel.pack_forget()
-					entryFrame.pack_forget()
-					# dicesFrame.pack_forget()
-					root.quit()
-	entryCanvas.bind("<Button-1>", cellChoice)
-	root.mainloop()
-
-# 
-# Retorna a celula que o jogador deseja preencher
-# 
-def getSelectedCell():
-	global selectedCell
-	return selectedCell
-
-
 
 # 
 # Remove elementos iniciais do jogo
@@ -98,6 +49,7 @@ def mainView():
 	setNewGame()
 	startGameView(root)
 	startDiceElements(root)
+	startCellElements(root)
 
 #	gameState 0(tela inicial) / 1(entrando os jogadores) / 2(jogo comecou) 
 	global gameState

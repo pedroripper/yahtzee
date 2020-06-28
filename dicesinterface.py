@@ -1,14 +1,20 @@
+# 
+# Nesse modulo constam as funcoes da interface relacionadas a exibicao dos 
+# dados e da interacao do usuario com os dados
+# 
 
 from tkinter import *
 from PIL import ImageTk, Image
 import gamemanager as gm
 
 
-
 __all__ = ['displayDices','getFinalSeq','removeDicesElements','startDiceElements']
 
 global dicesFrame  
 
+# 
+# Inicializa os elementos
+# 
 def startDiceElements(root):
 	global mainRoot
 	global dicesFrame    
@@ -186,7 +192,9 @@ def getFinalSeq():
 	return finalSeq
 
 
-
+# 
+# Remove os elementos
+# 
 def removeDicesElements():
 	dicesFrame.pack_forget()
 

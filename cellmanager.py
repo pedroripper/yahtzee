@@ -3,7 +3,7 @@
 # administracao das celulas
 # 
 import tablemanager as tm
-import interface as it
+import cellinterface as ci
 
 
 __all__ = ['chooseCell','calcPlays']
@@ -110,9 +110,9 @@ def chooseCell (nPlayer, lD):
 	dCelulas = calcPlays(lD);
 
 
-	it.chooseCellEntry(dCelulas)
+	ci.chooseCellEntry(dCelulas)
 
-	cel = it.getSelectedCell()
+	cel = ci.getSelectedCell()
 	if cel == 'um': 
 		nCel = 0
 	elif cel == 'dois': 
