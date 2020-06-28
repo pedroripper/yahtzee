@@ -1,2 +1,2 @@
-# yahtzee
+# 🎲🎲🎲 yahtzee 🎲🎲🎲
 Yahtzee Game made with Tkinter
