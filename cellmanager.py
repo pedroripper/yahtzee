@@ -2,7 +2,6 @@
 # Nesse modulo constam as funcoes relacionadas a
 # administracao das celulas
 # 
-from dice import *
 from tablemanager import *
 import interface as it
 
@@ -106,8 +105,6 @@ def calcPlays(lD):
 # Faz o usuario escolher a celula desejada
 # 
 def chooseCell (nPlayer, lD):
-
-	print(lD)
 
 	nCel = 0
 	dCelulas = calcPlays(lD);

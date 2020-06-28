@@ -5,7 +5,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from tablemanager import*
-from dice import*
+from dicemanager import*
 from cellmanager import*
 from menubar import*
 from gamemanager import*
@@ -18,7 +18,6 @@ root = Tk()
 
 dicesFrame = Frame(root)
 diceCanvas = Canvas(dicesFrame, width=500, height=150, bg='white')
-chancesLabel = Label(dicesFrame, text = "Chances: %d" % 0,  font=('Times', 20), compound = "center")
 
 # 
 # Escolhe a celula que deseja inserir na interface
@@ -71,17 +70,13 @@ def displayDices(seq, chances):
 	
 	global diceFrame    
 	global diceCanvas
-	global chancesLabel
 	global finalSeq
 
-	dicesFrame.pack()
-	chancesLabel = Label(dicesFrame, text = "Chances: %d" % chances,  font=('Times', 20), compound = "center")
-	changeDicesLabel = Label(dicesFrame, text = "Você deseja mudar seus dados?",  font=('Times', 20), compound = "center")
+	dicesFrame.pack(side= BOTTOM)
 
 # 	Se ja jogou uma vez limpa av view para exibir de novo
 	if(chances < 2): 
 		diceCanvas.delete("all")
-		chancesLabel.pack_forget()
 		diceCanvas.pack_forget()
 
 	diceCanvas.pack(expand=YES, fill=BOTH) 
@@ -170,8 +165,6 @@ def displayDices(seq, chances):
 			if(event.x >= confirmButtonPos[0] and event.x <= (confirmButtonPos[0]+confirmButtonSize[0])):
 				if(event.y >= confirmButtonPos[1] and event.y <= (confirmButtonPos[1]+confirmButtonSize[1])):
 					roundLabel.pack_forget()
-					chancesLabel.pack_forget()
-					# dicesFrame.pack_forget()
 					root.quit()
 		else:
 # 	Ainda nao comecou a selecionar os dados
@@ -267,12 +260,14 @@ def loadGameElements(isNewGame):
 # Atualiza o status do jogo na interface
 # 
 def updateGameStatus(): # atualiza na interface a rodada e a vez do jogador\
+	global roundLabel
+	global playerTurnLabel
 	turn = getPlayerTurn()
 	roundLabel.config(text = 'Rodada número: %d' % (getGameRound()+1))
 	playerTurnLabel.config(text = 'Vez do jogador: ' + getPlayerNamesInd(turn))
+	canvas.pack(side = BOTTOM)
 	roundLabel.pack()
 	playerTurnLabel.pack()
-	canvas.pack(side = BOTTOM)
 
 # 
 # Gerencia as funcoes da interface principal do jogo, desde o seu incio ate o termino da partida
@@ -376,6 +371,7 @@ def mainView():
 			elif(event.x >= choiceTossDicePos[0] and event.x <= (choiceTossDicePos[0]+choiceTossDiceSize[0])):
 				if(event.y >= choiceTossDicePos[1] and event.y <= (choiceTossDicePos[1]+choiceTossDiceSize[1])):
 					canvas.pack_forget()
+					gameFrame.pack(side = TOP)
 					chooseCell(getPlayerTurn(), createSeq())
 					status = gameUpdate()
 					if(status != None):
