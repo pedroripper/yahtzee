@@ -16,7 +16,7 @@ isShowingCellChoice = [False]
 isEditingDices = [False]
 finalSeq = []
 gameStarted = [0]
-selectedCell = []
+# selectedCell = []
 dicesFrame = Frame(root)
 diceCanvas = Canvas(dicesFrame, width=500, height=150, bg='white')
 chancesLabel = Label(dicesFrame, text = "Chances: %d" % 0,  font=('Times', 20), compound = "center")
@@ -42,18 +42,26 @@ def chooseCellEntry(dCelulas):
 # 	Pega o valor da celula decidida pelo usuario
 # 
 	def cellChoice(event):
+		global selectedCell
+		selectedCell = ""
 		confirmImageSize = [confirmImage.width(), confirmImage.height()]
 		confirmButtonPos = [entryCanvas.coords('checkCellButton')[0]-confirmImageSize[0]/2, entryCanvas.coords('checkCellButton')[1]-confirmImageSize[1]/2]
-		
 		if(event.x >= confirmButtonPos[0] and event.x <= (confirmButtonPos[0]+confirmImageSize[0])):
 				if(event.y >= confirmButtonPos[1] and event.y <= (confirmButtonPos[1]+confirmImageSize[1])):
-					selectedCell[:] = [entry.get()]
+					selectedCell += entry.get()
 					entryCanvas.pack_forget()
 					entryLabel.pack_forget()
 					entryFrame.pack_forget()
 					root.quit()
 	entryCanvas.bind("<Button-1>", cellChoice)
 	root.mainloop()
+
+# 
+# Retorna a celula que o jogador deseja preencher
+# 
+def getSelectedCell():
+	global selectedCell
+	return selectedCell
 
 
 # 
@@ -147,7 +155,6 @@ def displayDices(seq, chances):
 		if(chances == 0):
 			if(event.x >= confirmButtonPos[0] and event.x <= (confirmButtonPos[0]+confirmButtonSize[0])):
 				if(event.y >= confirmButtonPos[1] and event.y <= (confirmButtonPos[1]+confirmButtonSize[1])):
-					print("Essa parte ta repetindo")
 					dicesFrame.pack_forget()
 					root.quit()
 		else:
@@ -315,7 +322,6 @@ def mainView():
 					##SELECIONOU COMECAR O JOGO#####
 					gameStarted[0] = 1
 					setNumberPlayers(int(numberOfPlayersEntry.get()))
-					# print(getNumberPlayers())
 					beginTables(getNumberPlayers())
 					canvas.delete('playButtonTag')
 					numberOfPlayersEntry.pack_forget()

@@ -4,7 +4,7 @@
 # 
 
 import interface as inter
-from tablemanager import*
+import tablemanager as tm
 
 
 __all__ = ['getNumberPlayers', 'setNumberPlayers','getPlayerNames','setPlayerNames','setPlayerNameInd','getPlayerTurn','setPlayerTurn','getGameRound','setGameRound','setNewGame','gameUpdate','getPlayerNamesInd']
@@ -102,18 +102,19 @@ def setNewGame():
 # Calcula o vencedor do jogo e retorna o indice do ganhador
 # 
 def calcWinner():
-        winnerIndex = 0
-        score = 0
-        highscore = 0
-        print("Fim do jogo!\n")
-        print("Pontuacoes:\n")
-        for i in range(nPlayers):
-                score = calcTable(i)
-                print("Jogador " + str(i+1) +": " + str(score) + "pontos\n")
-                if score > highscore:
-                        highscore = score
-                        winnerIndex = i
-        return winnerIndex
+	global numPlayers
+	winnerIndex = 0
+	score = 0
+	highscore = 0
+	print("Fim do jogo!\n")
+	print("Pontuacoes:\n")
+	for i in range(numPlayers):
+		score = tm.calcTable(i)
+		print("Jogador " + str(i+1) +": " + str(score) + "pontos\n")
+		if score > highscore:
+			highscore = score
+			winnerIndex = i
+	return winnerIndex
 
 # 
 # Atualiza a partida com as vezes dos jogadores e rodada

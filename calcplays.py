@@ -1,3 +1,7 @@
+# 
+# Nesse modulo constam as funcoes de calculo dos valores das celulas
+# 
+# 
 
 __all__ = ['calcPlays']
 

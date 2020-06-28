@@ -75,7 +75,6 @@ def getSampleTable(dCelulas):
 # Retorna a tabela de um usuario
 # 
 def getUserTable(nPlayer):
-        print("\nSua tabela:\n")
         t = tables[nPlayer]
         ti.displayTable(t, nPlayer)
         return

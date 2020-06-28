@@ -15,13 +15,9 @@ def chooseCell (nPlayer, lD):
 	dCelulas = calcPlays(lD);
 
 
-	print(dCelulas)
-
-
 	it.chooseCellEntry(dCelulas)
 
-
-	cel = it.selectedCell[0]
+	cel = it.getSelectedCell()
 	if cel == 'um': 
 		nCel = 0
 	elif cel == 'dois': 

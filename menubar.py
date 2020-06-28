@@ -51,7 +51,6 @@ def setUpTableMenubar(root):
 # Chama getUserTable para exibir a tabela do usuario desejado
 # 
 def menuBarTableSelect(i): 
-	print("Mostra a tabela do usuario " + str(i+1))
 	getUserTable(i)
 
 
