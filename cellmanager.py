@@ -2,7 +2,7 @@
 # Nesse modulo constam as funcoes relacionadas a
 # administracao das celulas
 # 
-from tablemanager import *
+import tablemanager as tm
 import interface as it
 
 
@@ -144,7 +144,7 @@ def chooseCell (nPlayer, lD):
 	
 	val = dCelulas[nCel]
 	
-	cellCheck = insertValue(nPlayer, nCel, val)
+	cellCheck = tm.insertValue(nPlayer, nCel, val)
 	if cellCheck == False:
 		print("\nErro na escolha de celula. Tentando novamente...\n")
 		chooseCell(nPlayer,lD)

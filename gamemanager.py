@@ -5,7 +5,7 @@
 
 import interface as inter
 import tablemanager as tm
-
+import gameinterface as gi
 
 __all__ = ['getNumberPlayers', 'setNumberPlayers','getPlayerNames','setPlayerNames','setPlayerNameInd','getPlayerTurn','setPlayerTurn','getGameRound','setGameRound','setNewGame','gameUpdate','getPlayerNamesInd','getWinnerPoints']
 
@@ -137,7 +137,7 @@ def gameUpdate():
 			return calcWinner()
 	else:
 		nplayerTurn += 1
-	inter.updateGameStatus()
+	gi.updateGameStatus()
 	return None
 
 
