@@ -1,12 +1,18 @@
 # 
-# Nesse modulo constam as funcoes de calculo dos valores das celulas
+# Nesse modulo constam as funcoes relacionadas a
+# administracao das celulas
 # 
+from dice import *
+from tablemanager import *
+import interface as it
+
+
+__all__ = ['chooseCell','calcPlays']
+
 # 
-
-__all__ = ['calcPlays']
-
-
-def calcPlays(lD): # calcular jogada em todas as celulas
+# Calcula jogada em todas as celulas
+# 
+def calcPlays(lD): 
 	lS = []
 	dF = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
@@ -95,4 +101,56 @@ def calcPlays(lD): # calcular jogada em todas as celulas
 
 	dF[13] = 0
 	return dF
+
+# 
+# Faz o usuario escolher a celula desejada
+# 
+def chooseCell (nPlayer, lD):
+
+	print(lD)
+
+	nCel = 0
+	dCelulas = calcPlays(lD);
+
+
+	it.chooseCellEntry(dCelulas)
+
+	cel = it.getSelectedCell()
+	if cel == 'um': 
+		nCel = 0
+	elif cel == 'dois': 
+		nCel = 1
+	elif cel == 'tres': 
+		nCel = 2
+	elif cel == 'quatro': 
+		nCel = 3
+	elif cel == 'cinco': 
+		nCel = 4
+	elif cel == 'seis': 
+		nCel = 5
+	elif cel == 'trinca': 
+		nCel = 6
+	elif cel == 'quadra': 
+		nCel = 7
+	elif cel == 'fullhouse' or cel == 'full house': 
+		nCel = 8
+	elif cel == 'minima' or cel == 'seq min': 
+		nCel = 9
+	elif cel == 'maxima' or cel == 'seq max': 
+		nCel = 10
+	elif cel == 'yathzee': 
+		nCel = 11
+	elif cel == 'chance': 
+		nCel = 12
+	elif cel == 'pass': 
+		return
+	
+	val = dCelulas[nCel]
+	
+	cellCheck = insertValue(nPlayer, nCel, val)
+	if cellCheck == False:
+		print("\nErro na escolha de celula. Tentando novamente...\n")
+		chooseCell(nPlayer,lD)
+
+	return
 

@@ -6,7 +6,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 from tablemanager import*
 from dice import*
-from chooseCell import*
+from cellmanager import*
 from menubar import*
 from gamemanager import*
 
@@ -246,8 +246,10 @@ def getFinalSeq():
 def loadGameElements(isNewGame): 
 	global canvas
 	global gameState
+	global namesLabel
 	if(isNewGame):
 		canvas.delete('confirmNamesTag')
+		namesLabel.pack_forget()
 		for i in range(getNumberPlayers()): #Cria o menubar para as tabelas dos jogadores
 			entryNames[i].pack_forget()
 	else:
@@ -292,6 +294,7 @@ def mainView():
 	global question
 	question = Label(text = "Quantos jogadores?", font=('Times', 20))
 	question.pack()
+
 	global numberOfPlayersEntry
 	numberOfPlayersEntry = Entry(root)
 	numberOfPlayersEntry.pack()
@@ -300,6 +303,10 @@ def mainView():
 	global playerTurnLabel
 	roundLabel = Label(gameFrame, text = '', font=('Times', 20))
 	playerTurnLabel = Label(gameFrame, text = '', font=('Times', 20))
+
+	global namesLabel
+	namesLabel = Label(text = "Qual o nome dos jogadores", font=('Times', 20))
+
 
 	global canvas
 	canvas = Canvas(gameFrame, width=500, height=80, bg='white')  
@@ -338,19 +345,22 @@ def mainView():
 	def beginGameClickEvent(event): # jogador escolhe começar o jogo
 		global gameState
 		choiceTossDicePos[:] = [canvas.coords('tossDicesTag')[0] - choiceTossDiceSize[0]/2, canvas.coords('tossDicesTag')[1] - choiceTossDiceSize[1]/2]
+#	Jogo ainda nao comecou 
 		if(gameState == 0):
+#	Selecionou comecar o jogo
 			if(event.x >= playImgPos[0] and event.x <= (playImgPos[0]+playImgSize[0])):
 				if(event.y >= playImgPos[1] and event.y <= (playImgPos[1]+playImgSize[1])):
-					##SELECIONOU COMECAR O JOGO#####
 					gameState = 1
 					setNumberPlayers(int(numberOfPlayersEntry.get()))
 					beginTables(getNumberPlayers())
 					canvas.delete('playButtonTag')
 					numberOfPlayersEntry.pack_forget()
 					question.pack_forget()	
+					namesLabel.pack(side = TOP)
 					for j in range(getNumberPlayers()):
 						entryNames[j].pack() #cria os campos para inserir os nomes dos jogadores
 					canvas.create_image(canvas.winfo_width()/2, canvas.winfo_height()/2, image=confirmImage, anchor=CENTER, tags='confirmNamesTag')
+					gameFrame.pack(side = BOTTOM)
 		elif(gameState == 1):
 			confirmImageSize = [confirmImage.width(), confirmImage.height()]
 			confirmButtonPos = [canvas.coords('confirmNamesTag')[0]-confirmImageSize[0]/2, canvas.coords('confirmNamesTag')[1]-confirmImageSize[1]/2]
@@ -370,8 +380,10 @@ def mainView():
 					status = gameUpdate()
 					if(status != None):
 						gameFrame.pack_forget()
-						winnerLabel = Label(root, text = 'O jogador %d ganhou!' % (status + 1), font=('Times', 20))
+						winnerLabel = Label(root, text = 'O jogador %s ganhou!' % (getPlayerNamesInd(status)), font=('Times', 20))
+						winnerPointsLabel = Label(root, text = 'Foram %d pontos!' % (getWinnerPoints()), font=('Times', 20))
 						winnerLabel.pack()
+						winnerPointsLabel.pack()
 						return
 
 

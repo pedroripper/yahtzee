@@ -7,7 +7,7 @@ import interface as inter
 import tablemanager as tm
 
 
-__all__ = ['getNumberPlayers', 'setNumberPlayers','getPlayerNames','setPlayerNames','setPlayerNameInd','getPlayerTurn','setPlayerTurn','getGameRound','setGameRound','setNewGame','gameUpdate','getPlayerNamesInd']
+__all__ = ['getNumberPlayers', 'setNumberPlayers','getPlayerNames','setPlayerNames','setPlayerNameInd','getPlayerTurn','setPlayerTurn','getGameRound','setGameRound','setNewGame','gameUpdate','getPlayerNamesInd','getWinnerPoints']
 
 
 # 
@@ -83,6 +83,13 @@ def setGameRound(loadedRound):
 	gameRound = loadedRound
 
 # 
+# Retorna os pontos do usuario vencedor
+# 
+def getWinnerPoints():
+	global winnerPoints
+	return winnerPoints
+
+# 
 # Inicio do jogo. Dados iniciais dos jogadores
 # 
 def setNewGame():
@@ -90,6 +97,7 @@ def setNewGame():
 	global gameRound
 	global nplayerTurn
 	global numPlayers
+	global winnerPoints
 	PlayerNameList = ['','','','','','']
 	gameRound = 0
 	nplayerTurn = 0
@@ -101,6 +109,7 @@ def setNewGame():
 # 
 def calcWinner():
 	global numPlayers
+	global winnerPoints
 	winnerIndex = 0
 	score = 0
 	highscore = 0
@@ -108,6 +117,7 @@ def calcWinner():
 	# print("Pontuacoes:\n")
 	for i in range(numPlayers):
 		score = tm.calcTable(i)
+		winnerPoints = score
 		# print("Jogador " + str(i+1) +": " + str(score) + "pontos\n")
 		if score > highscore:
 			highscore = score
