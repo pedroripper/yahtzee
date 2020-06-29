@@ -110,7 +110,9 @@ def removeGameElements():
 	playerTurnLabel.pack_forget()
 	roundLabel.pack_forget()
 
-
+def removeButtonInAdmMode():
+	global gameCanvas
+	gameCanvas.pack_forget()
 
 
 

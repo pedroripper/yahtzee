@@ -9,6 +9,8 @@ import dicesinterface as di
 import gameinterface as gi
 __all__ = ['startCellElements','chooseCellEntry']
 
+global entryFrame
+
 # 
 # Inicializa os elementos
 # 
@@ -54,6 +56,7 @@ def chooseCellEntry(dCelulas):
 					entryCanvas.pack_forget()
 					entryLabel.pack_forget()
 					entryFrame.pack_forget()
+					entry.pack_forget()
 					# dicesFrame.pack_forget()
 					mainRoot.quit()
 	entryCanvas.bind("<Button-1>", cellChoice)

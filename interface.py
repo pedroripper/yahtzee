@@ -17,7 +17,6 @@ from cellinterface import*
 __all__ = ['mainView','removeStarterViewElements']
 
 
-root = Tk()
 
 # 
 # Remove elementos iniciais do jogo
@@ -45,7 +44,10 @@ def removeStarterViewElements(isNewGame):
 # Gerencia as funcoes da interface principal do jogo, desde o seu incio ate o termino da partida
 # 
 def mainView(): 
+	global root
+	root = Tk()
 	root.title('Yahtzee')
+	root.configure(background='white')
 	setNewGame()
 	startGameView(root)
 	startDiceElements(root)
@@ -86,6 +88,7 @@ def mainView():
 
 
 # 	Menubar com os botoes para salvar e carregar partida
+	setUpAdmMenubar(root)
 	setUpFileMenubar(root)
 
 

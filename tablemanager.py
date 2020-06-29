@@ -4,7 +4,7 @@
 # 
 
 import tableinterface as ti
-__all__ = ['beginTables', 'insertValue', 'calcTable','getUserTable','getSampleTable','loadTable','prepareTableToSave']
+__all__ = ['beginTables', 'insertValue', 'calcTable','getUserTable','getSampleTable','loadTable','prepareTableToSave','canYahtbonus']
 
 
 tables = []
@@ -40,7 +40,7 @@ def insertValue(nPlayer,cel,value):
         if not value:
                 return False
         if cel == 13:
-                if(str(tables[nPlayer][11]) != '0'):
+                if(tables[nPlayer][11] == '0'):
                         return False
                 else:
                         tables[nPlayer][cel] = str(int(tables[nPlayer][cel]) + value)
@@ -62,6 +62,7 @@ def calcTable(nPlayer):
         totalLower = 0
         for cel in range(6,14):
                 totalLower += int(tables[nPlayer][cel])
+        totalUpper += int(tables[nPlayer][13])*int(tables[nPlayer][11])
         if totalLower > 62:
                 totalLower += 35
 
@@ -78,3 +79,13 @@ def getUserTable(nPlayer):
         t = tables[nPlayer]
         ti.displayTable(t, nPlayer)
         return
+
+# 
+# Retorna se pode fazer bonus
+# 
+def canYahtbonus(nPlayer):
+        if(tables[nPlayer][11] != '0'):
+                return True
+
+
+

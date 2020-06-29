@@ -6,8 +6,8 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-from gamemanager import*
-from tablemanager import *
+import gamemanager as gm
+import tablemanager as tm
 import interface as inter
 __all__ = ['saveGame','loadGame']
 
@@ -23,14 +23,14 @@ def saveGame(nPlayers, pTurn, gRound):
 		return
 	formatedPnameList = ""
 	for i in range(6):
-		formatedPnameList += (getPlayerNamesInd(i)) + " "
+		formatedPnameList += (gm.getPlayerNamesInd(i)) + " "
 	save.write("Dados da partida\n")
-	save.write(str(getNumberPlayers()) + '\n')
+	save.write(str(gm.getNumberPlayers()) + '\n')
 	save.write(formatedPnameList + '\n')
-	save.write(str(getPlayerTurn()) + '\n')
-	save.write(str(getGameRound()) + '\n')
-	for j in range(int(getNumberPlayers())):
-		save.write(prepareTableToSave(j) + "\n")
+	save.write(str(gm.getPlayerTurn()) + '\n')
+	save.write(str(gm.getGameRound()) + '\n')
+	for j in range(int(gm.getNumberPlayers())):
+		save.write(tm.prepareTableToSave(j) + "\n")
 	save.close()
 
 #
@@ -44,17 +44,17 @@ def loadGame():
 
 	loadedTable = []
 	fileText = file.readline() #pegando o numero de jogadores
-	setNumberPlayers(int(fileText[:(len(fileText)-1)]))
+	gm.setNumberPlayers(int(fileText[:(len(fileText)-1)]))
 	fileText = file.readline() #pegando os nomes dos jogadores
 	formatedPnameList = (fileText[:(len(fileText)-1)])
-	setPlayerNames(formatedPnameList)
+	gm.setPlayerNames(formatedPnameList)
 	fileText = file.readline() #pegando a vez do jogador
-	setPlayerTurn(int(fileText[:(len(fileText)-1)]))
+	gm.setPlayerTurn(int(fileText[:(len(fileText)-1)]))
 	fileText = file.readline() #pegando o numero da rodada
-	setGameRound(int(fileText[:(len(fileText)-1)]))
-	for i in range(getNumberPlayers()):
+	gm.setGameRound(int(fileText[:(len(fileText)-1)]))
+	for i in range(gm.getNumberPlayers()):
 		fileText = file.readline() #pegando a tabela do jogador i
 		loadedTable += [fileText.split()]
-	loadTable(loadedTable)
+	tm.loadTable(loadedTable)
 	inter.loadGameElements(False)
 

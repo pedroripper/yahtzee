@@ -11,7 +11,7 @@ __all__ = ['chooseCell','calcPlays']
 # 
 # Calcula jogada em todas as celulas
 # 
-def calcPlays(lD): 
+def calcPlays(lD, nPlayer): 
 	lS = []
 	dF = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
@@ -51,14 +51,14 @@ def calcPlays(lD):
 
 	#3 iguais
 	n3iguals = 0
-	if 3 in lS:
-		n3iguals = sum(lS)
+	if 3 in lS or 4 in lS or 5 in lS:
+		n3iguals = sum(lD)
 	dF[6] = n3iguals
 
 	#4 iguais
 	n4iguals = 0
-	if 4 in lS:
-		n4iguals = sum(lS)
+	if 4 in lS or 5 in lS:
+		n4iguals = sum(lD)
 	dF[7] = n4iguals
 
 	#Full House
@@ -69,15 +69,8 @@ def calcPlays(lD):
 
 	#Seq Min
 	nMin = 0
-	if lS.count(1) >= 3:
-		if lS.count(2) != 0:
-			if lS[0] == 0 and (lS[1] == 0 or lS[-1] ==0):
-				nMin = 30
-			if lS[-1] == 0 and lS[-2] == 0:
-				nMin = 30
-		else:
-			if lS[-2] == 0 or lS[1] == 0:
-				nMin = 30
+	if (lS[0]>0 and lS[1]>0  and lS[2]>0 and lS[3]>0) or (lS[1]>0 and lS[2]>0 and lS[3]>0 and lS[4]>0) or (lS[2]>0 and lS[3]>0 and lS[4]>0 and lS[5]>0):
+	    nMin = 30
 	dF[9] = nMin
 
 	#Seq Maxima
@@ -91,6 +84,8 @@ def calcPlays(lD):
 	nYahtzee = 0
 	if lS.count(5) == 1:
 		nYahtzee = 50
+		if(tm.canYahtbonus(nPlayer)):
+			dF[13] = 1
 	dF[11] = nYahtzee
 
 	#chance
@@ -98,7 +93,6 @@ def calcPlays(lD):
 	nChance = sum(lD)
 	dF[12] = nChance
 
-	dF[13] = 0
 	return dF
 
 # 
@@ -107,7 +101,7 @@ def calcPlays(lD):
 def chooseCell (nPlayer, lD):
 
 	nCel = 0
-	dCelulas = calcPlays(lD);
+	dCelulas = calcPlays(lD, nPlayer);
 
 
 	ci.chooseCellEntry(dCelulas)
@@ -132,11 +126,15 @@ def chooseCell (nPlayer, lD):
 	elif cel == 'fullhouse' or cel == 'full house': 
 		nCel = 8
 	elif cel == 'minima' or cel == 'seq min': 
+		print("porr")
 		nCel = 9
 	elif cel == 'maxima' or cel == 'seq max': 
 		nCel = 10
-	elif cel == 'yathzee': 
-		nCel = 11
+	elif cel == 'yahtzee': 
+		if(tm.canYahtbonus(nPlayer)):
+			nCel = 13
+		else:
+			nCel = 11
 	elif cel == 'chance': 
 		nCel = 12
 	elif cel == 'pass': 

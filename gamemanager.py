@@ -88,6 +88,7 @@ def setGameRound(loadedRound):
 def getWinnerPoints():
 	global winnerPoints
 	return winnerPoints
+	
 
 # 
 # Inicio do jogo. Dados iniciais dos jogadores
